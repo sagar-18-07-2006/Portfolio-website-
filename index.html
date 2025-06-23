@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sagar Maheshwari - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --dark-bg: #0a192f;
+            --light-text: #ccd6f6;
+            --section-spacing: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: transparent;
+            color: var(--light-text);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        #webglCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 5%;
+            background-color: rgba(10, 25, 47, 0.85);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 150px 5% 60px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), #3498db);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-weight: 300;
+        }
+
+        .hero-image {
+            text-align: center;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .profile-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), #3498db);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: var(--section-spacing) 5%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(46, 204, 113, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #2ecc71, #3498db);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .project-title {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+        
+        .project-date {
+            color: #8892b0;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tech-item {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: var(--section-spacing) 5%;
+            text-align: center;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            font-size: 2.5rem;
+            color: var(--light-text);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+            background: rgba(46, 204, 113, 0.1);
+            border-color: rgba(46, 204, 113, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 5%;
+            text-align: center;
+            background: rgba(10, 15, 30, 0.9);
+            font-size: 0.9rem;
+            color: #8892b0;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-text {
+                text-align: left;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .profile-img {
+                max-width: 500px;
+            }
+
+            .nav-links {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-bg);
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content {
+                padding-top: 50px;
+            }
+
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--light-text);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            .contact-link {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+        }
+        
+        /* Particle Background UI - Hidden by default */
+        #ui, #controls {
+            display: none;
+        }
+        
+        #loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            z-index: 10000; 
+            transition: opacity 0.6s ease-out; 
+        }
+        #loading span {
+            font-size: 24px;
+            letter-spacing: 2px;
+            margin-bottom: 15px; 
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+        #progress-container {
+             width: 60%;
+             max-width: 300px;
+             height: 6px;
+             background-color: rgba(255, 255, 255, 0.1);
+             border-radius: 3px;
+             overflow: hidden; 
+        }
+        #progress {
+            height: 100%;
+            width: 0%; 
+            background: linear-gradient(90deg, #00a2ff, #00ffea); 
+            transition: width 0.3s ease; 
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="loading">
+        <span>Initializing Portfolio...</span>
+        <div id="progress-container">
+             <div id="progress"></div>
+        </div>
+    </div>
+
+    <div id="ui">
+        <div id="info">Shape: Sphere (Click to morph)</div>
+    </div>
+
+    <div id="controls">
+        <button id="shape-btn">Change Shape</button>
+
+        <div id="color-picker">
+            <div class="color-option" data-scheme="fire" style="background: linear-gradient(to bottom right, #ff4500, #ffcc00)"></div>
+            <div class="color-option" data-scheme="neon" style="background: linear-gradient(to bottom right, #ff00ff, #00ffff)"></div>
+            <div class="color-option" data-scheme="nature" style="background: linear-gradient(to bottom right, #00ff00, #66ffcc)"></div>
+            <div class="color-option" data-scheme="rainbow" style="background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)"></div>
+        </div>
+    </div>
+
+    <canvas id="webglCanvas"></canvas>
+
+    <!-- Portfolio Content -->
+    <header class="header">
+        <div class="logo">Sagar</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="menu-toggle">☰</button>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Full Stack Developer &amp; CS Student</h1>
+                <p class="hero-description">
+                    I build innovative digital solutions using modern technologies with a focus on clean code and user experience.
+                </p>
+                <a href="#projects" class="cta-button">View My Work</a>
+            </div>
+            <div class="hero-image">
+                <div class="profile-img">
+                    <i class="fas fa-user-circle" style="font-size: 18rem; color: rgba(255,255,255,0.1);"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="project-grid">
+            <!-- Bingbox Project -->
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-film"></i>
+                </div>
+                <h3 class="project-title">Bingbox Movie Search</h3>
+                <span class="project-date">Jan 2023 - Mar 2023</span>
+                <div class="project-tech">
+                    <span class="tech-item">React</span>
+                    <span class="tech-item">Node.js</span>
+                    <span class="tech-item">TMDB API</span>
+                </div>
+                <p>A movie discovery platform with real-time search and recommendations using the TMDB database.</p>
+            </div>
+
+            <!-- Other Projects -->
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3 class="project-title">E-Commerce Store</h3>
+                <span class="project-date">Apr 2023 - Jun 2023</span>
+                <div class="project-tech">
+                    <span class="tech-item">MERN Stack</span>
+                    <span class="tech-item">Redux</span>
+                    <span class="tech-item">Stripe API</span>
+                </div>
+                <p>Full-featured online shopping platform with payment integration and inventory management.</p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h3 class="project-title">Task Management App</h3>
+                <span class="project-date">Jul 2023 - Sep 2023</span>
+                <div class="project-tech">
+                    <span class="tech-item">Vue.js</span>
+                    <span class="tech-item">Firebase</span>
+                    <span class="tech-item">JWT</span>
+                </div>
+                <p>Collaborative task management system with real-time updates and team collaboration features.</p>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="project-title">Financial Dashboard</h3>
+                <span class="project-date">Oct 2023 - Dec 2023</span>
+                <div class="project-tech">
+                    <span class="tech-item">React</span>
+                    <span class="tech-item">D3.js</span>
+                    <span class="tech-item">Express</span>
+                </div>
+                <p>Interactive financial data visualization dashboard with real-time updates and analytics.</p>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="project-title">AI Chatbot</h3>
+                <span class="project-date">Jan 2024 - Mar 2024</span>
+                <div class="project-tech">
+                    <span class="tech-item">Python</span>
+                    <span class="tech-item">TensorFlow</span>
+                    <span class="tech-item">WebSockets</span>
+                </div>
+                <p>Natural language processing chatbot with sentiment analysis and personalized responses.</p>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="project-title">Fitness Tracker App</h3>
+                <span class="project-date">Apr 2024 - Present</span>
+                <div class="project-tech">
+                    <span class="tech-item">React Native</span>
+                    <span class="tech-item">Firebase</span>
+                    <span class="tech-item">Health API</span>
+                </div>
+                <p>Mobile application for tracking workouts, nutrition, and health metrics with personalized plans.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">Get in Touch</h2>
+        <p style="max-width: 600px; margin: 0 auto 2rem; font-size: 1.2rem;">
+            Have a project in mind or want to discuss opportunities? Feel free to reach out!
+        </p>
+        <div class="contact-links">
+            <a href="mailto:sagar@example.com" class="contact-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://github.com/sagar-18-07-2006" target="_blank" class="contact-link">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/sagar-maheshwari" target="_blank" class="contact-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://twitter.com/sagar182006" target="_blank" class="contact-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <p>© 2024 Sagar Maheshwari. All rights reserved.</p>
+        <p>Designed and developed with ❤️</p>
+    </footer>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/",
+          "animejs": "https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.es.js",
+          "simplex-noise": "https://cdn.skypack.dev/simplex-noise@4.0.1"
+        }
+      }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+        import anime from 'animejs';
+        import { createNoise3D, createNoise4D } from 'simplex-noise';
+
+        let scene, camera, renderer, controls, clock;
+        let composer, bloomPass; 
+
+        let particlesGeometry, particlesMaterial, particleSystem;
+        let currentPositions, sourcePositions, targetPositions, swarmPositions; 
+        let particleSizes, particleOpacities, particleEffectStrengths; 
+        let noise3D, noise4D; 
+
+        let morphTimeline = null; 
+        let isInitialized = false;
+        let isMorphing = false;
+
+        const CONFIG = {
+            particleCount: 15000,
+            shapeSize: 14,
+            swarmDistanceFactor: 1.5,
+            swirlFactor: 4.0,
+            noiseFrequency: 0.1,
+            noiseTimeScale: 0.04,
+            noiseMaxStrength: 2.8,
+            colorScheme: 'neon',
+            morphDuration: 2000,
+            particleSizeRange: [0.08, 0.25],
+            starCount: 18000,
+            bloomStrength: 1.3,
+            bloomRadius: 0.5,
+            bloomThreshold: 0.05,
+            idleFlowStrength: 0.25,
+            idleFlowSpeed: 0.08,
+            idleRotationSpeed: 0.02,
+            morphSizeFactor: 0.5, 
+            morphBrightnessFactor: 0.6 
+        };
+
+        const SHAPES = [
+            { name: 'Sphere', generator: generateSphere },
+            { name: 'Cube', generator: generateCube },
+            { name: 'Pyramid', generator: generatePyramid },
+            { name: 'Torus', generator: generateTorus },
+            { name: 'Galaxy', generator: generateGalaxy },
+            { name: 'Wave', generator: generateWave }
+        ];
+        let currentShapeIndex = 0;
+
+        const morphState = { progress: 0.0 };
+
+        const COLOR_SCHEMES = {
+            fire: { startHue: 0, endHue: 45, saturation: 0.95, lightness: 0.6 },
+            neon: { startHue: 300, endHue: 180, saturation: 1.0, lightness: 0.65 },
+            nature: { startHue: 90, endHue: 160, saturation: 0.85, lightness: 0.55 },
+            rainbow: { startHue: 0, endHue: 360, saturation: 0.9, lightness: 0.6 }
+        };
+
+        const tempVec = new THREE.Vector3();
+        const sourceVec = new THREE.Vector3();
+        const targetVec = new THREE.Vector3();
+        const swarmVec = new THREE.Vector3();
+        const noiseOffset = new THREE.Vector3();
+        const flowVec = new THREE.Vector3();
+        const bezPos = new THREE.Vector3();
+        const swirlAxis = new THREE.Vector3();
+        const currentVec = new THREE.Vector3();
+
+        function generateSphere(count, size) {
+            const points = new Float32Array(count * 3);
+            const phi = Math.PI * (Math.sqrt(5) - 1);
+            for (let i = 0; i < count; i++) {
+                const y = 1 - (i / (count - 1)) * 2;
+                const radius = Math.sqrt(1 - y * y);
+                const theta = phi * i;
+                const x = Math.cos(theta) * radius;
+                const z = Math.sin(theta) * radius;
+                points[i * 3] = x * size;
+                points[i * 3 + 1] = y * size;
+                points[i * 3 + 2] = z * size;
+            }
+            return points;
+        }
+        function generateCube(count, size) {
+            const points = new Float32Array(count * 3);
+            const halfSize = size / 2;
+            for (let i = 0; i < count; i++) {
+                const face = Math.floor(Math.random() * 6);
+                const u = Math.random() * size - halfSize;
+                const v = Math.random() * size - halfSize;
+                switch (face) {
+                    case 0: points.set([halfSize, u, v], i * 3); break;
+                    case 1: points.set([-halfSize, u, v], i * 3); break;
+                    case 2: points.set([u, halfSize, v], i * 3); break;
+                    case 3: points.set([u, -halfSize, v], i * 3); break;
+                    case 4: points.set([u, v, halfSize], i * 3); break;
+                    case 5: points.set([u, v, -halfSize], i * 3); break;
+                }
+            }
+            return points;
+        }
+        function generatePyramid(count, size) {
+            const points = new Float32Array(count * 3);
+            const halfBase = size / 2;
+            const height = size * 1.2;
+            const apex = new THREE.Vector3(0, height / 2, 0);
+            const baseVertices = [
+                new THREE.Vector3(-halfBase, -height / 2, -halfBase), new THREE.Vector3(halfBase, -height / 2, -halfBase),
+                new THREE.Vector3(halfBase, -height / 2, halfBase), new THREE.Vector3(-halfBase, -height / 2, halfBase)
+            ];
+            const baseArea = size * size;
+            const sideFaceHeight = Math.sqrt(Math.pow(height, 2) + Math.pow(halfBase, 2));
+            const sideFaceArea = 0.5 * size * sideFaceHeight;
+            const totalArea = baseArea + 4 * sideFaceArea;
+            const baseWeight = baseArea / totalArea;
+            const sideWeight = sideFaceArea / totalArea;
+            for (let i = 0; i < count; i++) {
+                const r = Math.random();
+                let p = new THREE.Vector3(); let u, v;
+                if (r < baseWeight) {
+                    u = Math.random(); v = Math.random();
+                    p.lerpVectors(baseVertices[0], baseVertices[1], u);
+                    const p2 = new THREE.Vector3().lerpVectors(baseVertices[3], baseVertices[2], u);
+                    p.lerp(p2, v);
+                } else {
+                    const faceIndex = Math.floor((r - baseWeight) / sideWeight);
+                    const v1 = baseVertices[faceIndex]; const v2 = baseVertices[(faceIndex + 1) % 4];
+                    u = Math.random(); v = Math.random();
+                    if (u + v > 1) { u = 1 - u; v = 1 - v; }
+                    p.addVectors(v1, tempVec.subVectors(v2, v1).multiplyScalar(u));
+                    p.add(tempVec.subVectors(apex, v1).multiplyScalar(v));
+                }
+                points.set([p.x, p.y, p.z], i * 3);
+            }
+            return points;
+        }
+        function generateTorus(count, size) {
+            const points = new Float32Array(count * 3);
+            const R = size * 0.7; const r = size * 0.3;
+            for (let i = 0; i < count; i++) {
+                const theta = Math.random() * Math.PI * 2; const phi = Math.random() * Math.PI * 2;
+                const x = (R + r * Math.cos(phi)) * Math.cos(theta);
+                const y = r * Math.sin(phi);
+                const z = (R + r * Math.cos(phi)) * Math.sin(theta);
+                points[i * 3] = x; points[i * 3 + 1] = y; points[i * 3 + 2] = z;
+            }
+            return points;
+        }
+        function generateGalaxy(count, size) {
+            const points = new Float32Array(count * 3);
+            const arms = 4; const armWidth = 0.6; const bulgeFactor = 0.3;
+            for (let i = 0; i < count; i++) {
+                const t = Math.pow(Math.random(), 1.5); const radius = t * size;
+                const armIndex = Math.floor(Math.random() * arms);
+                const armOffset = (armIndex / arms) * Math.PI * 2;
+                const rotationAmount = radius / size * 6; const angle = armOffset + rotationAmount;
+                const spread = (Math.random() - 0.5) * armWidth * (1 - radius / size);
+                const theta = angle + spread;
+                const x = radius * Math.cos(theta); const z = radius * Math.sin(theta);
+                const y = (Math.random() - 0.5) * size * 0.1 * (1 - radius / size * bulgeFactor);
+                points[i * 3] = x; points[i * 3 + 1] = y; points[i * 3 + 2] = z;
+            }
+            return points;
+        }
+        function generateWave(count, size) {
+            const points = new Float32Array(count * 3);
+            const waveScale = size * 0.4; const frequency = 3;
+            for (let i = 0; i < count; i++) {
+                const u = Math.random() * 2 - 1; const v = Math.random() * 2 - 1;
+                const x = u * size; const z = v * size;
+                const dist = Math.sqrt(u * u + v * v); const angle = Math.atan2(v, u);
+                const y = Math.sin(dist * Math.PI * frequency) * Math.cos(angle * 2) * waveScale * (1 - dist);
+                points[i * 3] = x; points[i * 3 + 1] = y; points[i * 3 + 2] = z;
+            }
+            return points;
+        }
+
+        function init() {
+            let progress = 0;
+            const progressBar = document.getElementById('progress');
+            const loadingScreen = document.getElementById('loading');
+            function updateProgress(increment) {
+                progress += increment;
+                progressBar.style.width = `${Math.min(100, progress)}%`;
+                if (progress >= 100) {
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => { loadingScreen.style.display = 'none'; }, 600);
+                    }, 200);
+                }
+            }
+
+            clock = new THREE.Clock();
+            noise3D = createNoise3D(() => Math.random());
+            noise4D = createNoise4D(() => Math.random());
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x000308, 0.03);
+            updateProgress(5);
+
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 8, 28); 
+            camera.lookAt(scene.position);
+            updateProgress(5);
+
+            const canvas = document.getElementById('webglCanvas');
+            renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.1;
+            updateProgress(10);
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true; controls.dampingFactor = 0.05;
+            controls.minDistance = 5; controls.maxDistance = 80;
+            controls.autoRotate = true; controls.autoRotateSpeed = 0.3;
+            updateProgress(5);
+
+            scene.add(new THREE.AmbientLight(0x404060));
+            const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+            dirLight1.position.set(15, 20, 10); scene.add(dirLight1);
+            const dirLight2 = new THREE.DirectionalLight(0x88aaff, 0.9);
+            dirLight2.position.set(-15, -10, -15); scene.add(dirLight2);
+            updateProgress(10);
+
+            setupPostProcessing(); updateProgress(10);
+            createStarfield(); updateProgress(15);
+            setupParticleSystem(); updateProgress(25);
+
+            window.addEventListener('resize', onWindowResize);
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
+                    e.target.classList.add('active');
+                    CONFIG.colorScheme = e.target.dataset.scheme;
+                    updateColors();
+                });
+            });
+            document.querySelector(`.color-option[data-scheme="${CONFIG.colorScheme}"]`).classList.add('active');
+            updateProgress(15);
+
+            // Auto morph every 15 seconds
+            setInterval(triggerMorph, 4000);
+            
+            isInitialized = true;
+            animate();
+            console.log("Initialization complete.");
+        }
+
+        function setupPostProcessing() {
+            composer = new EffectComposer(renderer);
+            composer.addPass(new RenderPass(scene, camera));
+            bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), CONFIG.bloomStrength, CONFIG.bloomRadius, CONFIG.bloomThreshold);
+            composer.addPass(bloomPass);
+        }
+
+        function createStarfield() {
+            const starVertices = []; const starSizes = []; const starColors = [];
+            const starGeometry = new THREE.BufferGeometry();
+            for (let i = 0; i < CONFIG.starCount; i++) {
+                tempVec.set( THREE.MathUtils.randFloatSpread(400), THREE.MathUtils.randFloatSpread(400), THREE.MathUtils.randFloatSpread(400) );
+                if (tempVec.length() < 100) tempVec.setLength(100 + Math.random() * 300);
+                starVertices.push(tempVec.x, tempVec.y, tempVec.z);
+                starSizes.push(Math.random() * 0.15 + 0.05);
+                const color = new THREE.Color();
+                if (Math.random() < 0.1) { color.setHSL(Math.random(), 0.7, 0.65); } else { color.setHSL(0.6, Math.random() * 0.1, 0.8 + Math.random() * 0.2); }
+                starColors.push(color.r, color.g, color.b);
+            }
+            starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+            starGeometry.setAttribute('color', new THREE.Float32BufferAttribute(starColors, 3));
+            starGeometry.setAttribute('size', new THREE.Float32BufferAttribute(starSizes, 1));
+            const starMaterial = new THREE.ShaderMaterial({
+                 uniforms: { pointTexture: { value: createStarTexture() } },
+                 vertexShader: `
+                      attribute float size; varying vec3 vColor; varying float vSize;
+                      void main() {
+                           vColor = color; vSize = size; vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                           gl_PointSize = size * (400.0 / -mvPosition.z); gl_Position = projectionMatrix * mvPosition;
+                      }`,
+                 fragmentShader: `
+                      uniform sampler2D pointTexture; varying vec3 vColor; varying float vSize;
+                      void main() {
+                           float alpha = texture2D(pointTexture, gl_PointCoord).a; if (alpha < 0.1) discard;
+                           gl_FragColor = vec4(vColor, alpha * 0.9);
+                      }`,
+                 blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, vertexColors: true
+             });
+            scene.add(new THREE.Points(starGeometry, starMaterial));
+        }
+
+        function createStarTexture() {
+            const size = 64; const canvas = document.createElement('canvas');
+            canvas.width = size; canvas.height = size; const context = canvas.getContext('2d');
+            const gradient = context.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+            gradient.addColorStop(0, 'rgba(255,255,255,1)'); gradient.addColorStop(0.2, 'rgba(255,255,255,0.8)');
+            gradient.addColorStop(0.5, 'rgba(255,255,255,0.3)'); gradient.addColorStop(1, 'rgba(255,255,255,0)');
+            context.fillStyle = gradient; context.fillRect(0, 0, size, size);
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        function setupParticleSystem() {
+            targetPositions = SHAPES.map(shape => shape.generator(CONFIG.particleCount, CONFIG.shapeSize));
+            particlesGeometry = new THREE.BufferGeometry();
+
+            currentPositions = new Float32Array(targetPositions[0]);
+            sourcePositions = new Float32Array(targetPositions[0]);
+            swarmPositions = new Float32Array(CONFIG.particleCount * 3);
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(currentPositions, 3));
+
+            particleSizes = new Float32Array(CONFIG.particleCount);
+            particleOpacities = new Float32Array(CONFIG.particleCount);
+            particleEffectStrengths = new Float32Array(CONFIG.particleCount);
+            for (let i = 0; i < CONFIG.particleCount; i++) {
+                particleSizes[i] = THREE.MathUtils.randFloat(CONFIG.particleSizeRange[0], CONFIG.particleSizeRange[1]);
+                particleOpacities[i] = 1.0;
+                particleEffectStrengths[i] = 0.0;
+            }
+            particlesGeometry.setAttribute('size', new THREE.BufferAttribute(particleSizes, 1));
+            particlesGeometry.setAttribute('opacity', new THREE.BufferAttribute(particleOpacities, 1));
+            particlesGeometry.setAttribute('aEffectStrength', new THREE.BufferAttribute(particleEffectStrengths, 1));
+
+            const colors = new Float32Array(CONFIG.particleCount * 3);
+            updateColorArray(colors, currentPositions);
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            particlesMaterial = new THREE.ShaderMaterial({
+                 uniforms: {
+                      pointTexture: { value: createStarTexture() }
+                 },
+                 vertexShader: `
+                      attribute float size;
+                      attribute float opacity;
+                      attribute float aEffectStrength;
+                      varying vec3 vColor;
+                      varying float vOpacity;
+                      varying float vEffectStrength;
+
+                      void main() {
+                           vColor = color;
+                           vOpacity = opacity;
+                           vEffectStrength = aEffectStrength;
+
+                           vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+
+                           float sizeScale = 1.0 - vEffectStrength * ${CONFIG.morphSizeFactor.toFixed(2)};
+                           gl_PointSize = size * sizeScale * (400.0 / -mvPosition.z);
+
+                           gl_Position = projectionMatrix * mvPosition;
+                      }
+                 `,
+                 fragmentShader: `
+                      uniform sampler2D pointTexture;
+                      varying vec3 vColor;
+                      varying float vOpacity;
+                      varying float vEffectStrength;
+
+                      void main() {
+                           float alpha = texture2D(pointTexture, gl_PointCoord).a;
+                           if (alpha < 0.05) discard;
+
+                           vec3 finalColor = vColor * (1.0 + vEffectStrength * ${CONFIG.morphBrightnessFactor.toFixed(2)});
+
+                           gl_FragColor = vec4(finalColor, alpha * vOpacity);
+                      }
+                 `,
+                 blending: THREE.AdditiveBlending,
+                 depthTest: true,
+                 depthWrite: false,
+                 transparent: true,
+                 vertexColors: true
+            });
+
+            particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particleSystem);
+        }
+
+        function updateColorArray(colors, positionsArray) {
+            const colorScheme = COLOR_SCHEMES[CONFIG.colorScheme];
+            const center = new THREE.Vector3(0, 0, 0);
+            const maxRadius = CONFIG.shapeSize * 1.1;
+            for (let i = 0; i < CONFIG.particleCount; i++) {
+                const i3 = i * 3;
+                tempVec.fromArray(positionsArray, i3);
+                const dist = tempVec.distanceTo(center);
+                let hue;
+                if (CONFIG.colorScheme === 'rainbow') {
+                    const normX = (tempVec.x / maxRadius + 1) / 2; const normY = (tempVec.y / maxRadius + 1) / 2; const normZ = (tempVec.z / maxRadius + 1) / 2;
+                    hue = (normX * 120 + normY * 120 + normZ * 120) % 360;
+                } else {
+                    hue = THREE.MathUtils.mapLinear( dist, 0, maxRadius, colorScheme.startHue, colorScheme.endHue );
+                }
+                const noiseValue = (noise3D(tempVec.x * 0.2, tempVec.y * 0.2, tempVec.z * 0.2) + 1) * 0.5;
+                const saturation = THREE.MathUtils.clamp(colorScheme.saturation * (0.9 + noiseValue * 0.2), 0, 1);
+                const lightness = THREE.MathUtils.clamp(colorScheme.lightness * (0.85 + noiseValue * 0.3), 0.1, 0.9);
+                const color = new THREE.Color().setHSL(hue / 360, saturation, lightness);
+                color.toArray(colors, i3);
+            }
+        }
+
+        function updateColors() {
+            const colors = particlesGeometry.attributes.color.array;
+            updateColorArray(colors, particlesGeometry.attributes.position.array);
+            particlesGeometry.attributes.color.needsUpdate = true;
+        }
+
+        function triggerMorph() {
+            if (isMorphing) return;
+            isMorphing = true; controls.autoRotate = false;
+            sourcePositions.set(currentPositions);
+            const nextShapeIndex = (currentShapeIndex + 1) % SHAPES.length;
+            const nextTargetPositions = targetPositions[nextShapeIndex];
+            const centerOffsetAmount = CONFIG.shapeSize * CONFIG.swarmDistanceFactor;
+            for (let i = 0; i < CONFIG.particleCount; i++) {
+                const i3 = i * 3;
+                sourceVec.fromArray(sourcePositions, i3); targetVec.fromArray(nextTargetPositions, i3);
+                swarmVec.lerpVectors(sourceVec, targetVec, 0.5);
+                const offsetDir = tempVec.set( noise3D(i * 0.05, 10, 10), noise3D(20, i * 0.05, 20), noise3D(30, 30, i * 0.05) ).normalize();
+                const distFactor = sourceVec.distanceTo(targetVec) * 0.1 + centerOffsetAmount;
+                swarmVec.addScaledVector(offsetDir, distFactor * (0.5 + Math.random() * 0.8));
+                swarmPositions[i3] = swarmVec.x; swarmPositions[i3 + 1] = swarmVec.y; swarmPositions[i3 + 2] = swarmVec.z;
+            }
+            currentShapeIndex = nextShapeIndex;
+            morphState.progress = 0;
+            if (morphTimeline) morphTimeline.pause();
+            morphTimeline = anime({
+                 targets: morphState, progress: 1, duration: CONFIG.morphDuration, easing: 'cubicBezier(0.4, 0.0, 0.2, 1.0)',
+                 complete: () => {
+                     currentPositions.set(targetPositions[currentShapeIndex]);
+                     particlesGeometry.attributes.position.needsUpdate = true;
+                     particleEffectStrengths.fill(0.0);
+                     particlesGeometry.attributes.aEffectStrength.needsUpdate = true;
+                     sourcePositions.set(targetPositions[currentShapeIndex]);
+                     updateColors();
+                     isMorphing = false; controls.autoRotate = true;
+                 }
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (!isInitialized) return;
+            const elapsedTime = clock.getElapsedTime();
+            const deltaTime = clock.getDelta();
+            controls.update();
+            const positions = particlesGeometry.attributes.position.array;
+            const effectStrengths = particlesGeometry.attributes.aEffectStrength.array;
+
+            if (isMorphing) {
+                updateMorphAnimation(positions, effectStrengths, elapsedTime, deltaTime);
+            } else {
+                updateIdleAnimation(positions, effectStrengths, elapsedTime, deltaTime);
+            }
+            particlesGeometry.attributes.position.needsUpdate = true;
+            if (isMorphing || particlesGeometry.attributes.aEffectStrength.needsUpdate) {
+                 particlesGeometry.attributes.aEffectStrength.needsUpdate = true;
+            }
+            composer.render(deltaTime);
+        }
+
+        function updateMorphAnimation(positions, effectStrengths, elapsedTime, deltaTime) {
+            const t = morphState.progress;
+            const targets = targetPositions[currentShapeIndex];
+            const effectStrength = Math.sin(t * Math.PI);
+            const currentSwirl = effectStrength * CONFIG.swirlFactor * deltaTime * 50;
+            const currentNoise = effectStrength * CONFIG.noiseMaxStrength;
+
+            for (let i = 0; i < CONFIG.particleCount; i++) {
+                const i3 = i * 3;
+                sourceVec.fromArray(sourcePositions, i3);
+                swarmVec.fromArray(swarmPositions, i3);
+                targetVec.fromArray(targets, i3);
+
+                const t_inv = 1.0 - t; const t_inv_sq = t_inv * t_inv; const t_sq = t * t;
+                bezPos.copy(sourceVec).multiplyScalar(t_inv_sq);
+                bezPos.addScaledVector(swarmVec, 2.0 * t_inv * t);
+                bezPos.addScaledVector(targetVec, t_sq);
+
+                if (currentSwirl > 0.01) {
+                    tempVec.subVectors(bezPos, sourceVec);
+                    swirlAxis.set( noise3D(i * 0.02, elapsedTime * 0.1, 0), noise3D(0, i * 0.02, elapsedTime * 0.1 + 5), noise3D(elapsedTime * 0.1 + 10, 0, i * 0.02) ).normalize();
+                    tempVec.applyAxisAngle(swirlAxis, currentSwirl * (0.5 + Math.random() * 0.5));
+                    bezPos.copy(sourceVec).add(tempVec);
+                }
+
+                if (currentNoise > 0.01) {
+                    const noiseTime = elapsedTime * CONFIG.noiseTimeScale;
+                    noiseOffset.set( noise4D(bezPos.x * CONFIG.noiseFrequency, bezPos.y * CONFIG.noiseFrequency, bezPos.z * CONFIG.noiseFrequency, noiseTime), noise4D(bezPos.x * CONFIG.noiseFrequency + 100, bezPos.y * CONFIG.noiseFrequency + 100, bezPos.z * CONFIG.noiseFrequency + 100, noiseTime), noise4D(bezPos.x * CONFIG.noiseFrequency + 200, bezPos.y * CONFIG.noiseFrequency + 200, bezPos.z * CONFIG.noiseFrequency + 200, noiseTime) );
+                    bezPos.addScaledVector(noiseOffset, currentNoise);
+                }
+
+                positions[i3] = bezPos.x;
+                positions[i3 + 1] = bezPos.y;
+                positions[i3 + 2] = bezPos.z;
+
+                effectStrengths[i] = effectStrength;
+            }
+             particlesGeometry.attributes.aEffectStrength.needsUpdate = true;
+        }
+
+        function updateIdleAnimation(positions, effectStrengths, elapsedTime, deltaTime) {
+            const breathScale = 1.0 + Math.sin(elapsedTime * 0.5) * 0.015;
+            const timeScaled = elapsedTime * CONFIG.idleFlowSpeed;
+            const freq = 0.1;
+
+            let needsEffectStrengthReset = false;
+
+            for (let i = 0; i < CONFIG.particleCount; i++) {
+                const i3 = i * 3;
+                sourceVec.fromArray(sourcePositions, i3);
+                tempVec.copy(sourceVec).multiplyScalar(breathScale);
+                flowVec.set( noise4D(tempVec.x * freq, tempVec.y * freq, tempVec.z * freq, timeScaled), noise4D(tempVec.x * freq + 10, tempVec.y * freq + 10, tempVec.z * freq + 10, timeScaled), noise4D(tempVec.x * freq + 20, tempVec.y * freq + 20, tempVec.z * freq + 20, timeScaled) );
+                tempVec.addScaledVector(flowVec, CONFIG.idleFlowStrength);
+                currentVec.fromArray(positions, i3);
+                currentVec.lerp(tempVec, 0.05);
+                positions[i3] = currentVec.x;
+                positions[i3 + 1] = currentVec.y;
+                positions[i3 + 2] = currentVec.z;
+
+                if (effectStrengths[i] !== 0.0) {
+                    effectStrengths[i] = 0.0;
+                    needsEffectStrengthReset = true;
+                }
+            }
+             if (needsEffectStrengthReset) {
+                 particlesGeometry.attributes.aEffectStrength.needsUpdate = true;
+             }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        init();
+
+    </script>
+    
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Intersection Observer for Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.4s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
