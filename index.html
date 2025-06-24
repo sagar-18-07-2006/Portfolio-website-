@@ -260,7 +260,6 @@
             justify-content: center;
             gap: 2rem;
             margin-top: 2rem;
-            flex-wrap: wrap;
         }
 
         .contact-link {
@@ -293,8 +292,7 @@
             color: #8892b0;
         }
 
-        /* Responsive Design */
-        @media (min-width: 992px) {
+        @media (min-width: 768px) {
             .hero-content {
                 grid-template-columns: 1fr 1fr;
             }
@@ -320,21 +318,7 @@
             }
         }
 
-        @media (max-width: 991px) and (min-width: 768px) {
-            .hero-title {
-                font-size: 2.8rem;
-            }
-            
-            .hero-description {
-                font-size: 1.2rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             .nav-links {
                 display: none;
                 position: absolute;
@@ -353,81 +337,26 @@
             }
 
             .hero-title {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
-            .hero-description {
-                font-size: 1.1rem;
+            .hero-content {
+                padding-top: 50px;
             }
-            
-            .hero {
-                padding: 120px 5% 40px;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .project-card {
-                max-width: 500px;
-                margin: 0 auto;
+
+            .menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--light-text);
+                font-size: 1.5rem;
+                cursor: pointer;
             }
             
             .contact-link {
                 width: 60px;
                 height: 60px;
                 font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 1.8rem;
-            }
-            
-            .hero-description {
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 1.7rem;
-            }
-            
-            .cta-button {
-                padding: 10px 25px;
-                font-size: 1rem;
-            }
-            
-            .project-title {
-                font-size: 1.2rem;
-            }
-            
-            .contact-links {
-                gap: 1.2rem;
-            }
-            
-            .contact-link {
-                width: 50px;
-                height: 50px;
-                font-size: 1.7rem;
-            }
-            
-            .footer {
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .hero-title {
-                font-size: 1.6rem;
-            }
-            
-            .project-image {
-                height: 160px;
             }
         }
         
@@ -454,8 +383,6 @@
             margin-bottom: 15px; 
             color: #fff;
             font-family: 'Poppins', sans-serif;
-            text-align: center;
-            padding: 0 15px;
         }
         #progress-container {
              width: 60%;
@@ -471,23 +398,6 @@
             background: linear-gradient(90deg, #00a2ff, #00ffea); 
             transition: width 0.3s ease; 
             border-radius: 3px;
-        }
-        
-        /* Mobile menu animation */
-        .nav-links {
-            transition: all 0.3s ease;
-        }
-        
-        /* Project card animation */
-        .project-card {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease-out;
-        }
-        
-        .project-card.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
@@ -644,7 +554,7 @@
             Have a project in mind or want to discuss opportunities? Feel free to reach out!
         </p>
         <div class="contact-links">
-            <a href="mailto:sagarmaheshwari650@gmail.com class="contact-link">
+            <a href="mailto:sagarmaheshwari650@gmail.com" class="contact-link">
                 <i class="fas fa-envelope"></i>
             </a>
             <a href="https://github.com/sagar-18-07-2006" target="_blank" class="contact-link">
@@ -705,7 +615,7 @@
             noiseTimeScale: 0.04,
             noiseMaxStrength: 2.8,
             colorScheme: 'neon',
-            morphDuration: 2500,
+            morphDuration: 4000,
             particleSizeRange: [0.08, 0.25],
             starCount: 18000,
             bloomStrength: 1.3,
@@ -920,8 +830,8 @@
             document.querySelector(`.color-option[data-scheme="${CONFIG.colorScheme}"]`).classList.add('active');
             updateProgress(15);
 
-            // Auto morph every 8 seconds
-            setInterval(triggerMorph, 8000);
+            // Auto morph every 15 seconds
+            setInterval(triggerMorph, 15000);
             
             isInitialized = true;
             animate();
@@ -1247,20 +1157,17 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.4s ease-out';
             observer.observe(card);
-        });
-        
-        // Handle window resize for mobile
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768 && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-            }
         });
     </script>
 </body>
