@@ -2,7 +2,8 @@
 
 ![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-red)
 
-![Portfolio Screenshot](Screenshot 2025-06-23 220526.png)
+![Portfolio Screenshot](![Portfolio Screenshot](Screenshot%202025-06-23%20220526.png)
+)
 
 Welcome to my professional portfolio website! This interactive showcase features a dynamic 3D particle background and highlights my skills, projects, and experience as a Computer Science student and Full Stack Developer.
 
